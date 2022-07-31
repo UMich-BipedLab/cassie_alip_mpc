@@ -202,7 +202,7 @@ To re-create follow these steps
 ![image info](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/friction_change.png)
 
 ## Cassie Hardware Tests
-**Click images for videos of Experiments**
+**Click images for videos of Experiments**.
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/vgXWPKi8Wpo/0.jpg)](https://www.youtube.com/watch?v=vgXWPKi8Wpo) [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/AmPvQMpIHSw/0.jpg)](https://www.youtube.com/watch?v=AmPvQMpIHSw)
 
@@ -226,7 +226,7 @@ To re-create follow these steps
 cd cpp_alip_mpc/build
 ./cassie_alip_mpc cassie
 ```
-- Set the radio transmitter buttons to the default values used in the Remote Spoofer [file](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/matlab_alip_mpc/Custom_Code/RemoteSpoofer_with_standing.m). Adjust the `LS` and `RS` buttons such that they are 0 to represent flat ground
-    - The manual can be found [here](https://www.frsky-rc.com/wp-content/uploads/Downloads/Manual/X9DP/X9D%20PLUS-manual.pdf)
+- Set the radio transmitter buttons to the default values used in the Remote Spoofer [file](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/matlab_alip_mpc/Custom_Code/RemoteSpoofer_with_standing.m). Adjust the `LS` and `RS` buttons such that they are 0 to represent flat ground.
+    - The manual can be found [here](https://www.frsky-rc.com/wp-content/uploads/Downloads/Manual/X9DP/X9D%20PLUS-manual.pdf).
 - Start the controller in standing mode by setting `SB` to 0 and enable the torques by setting `SA` to 1.
 - Switch controller modes to walking by setting `SB` to 1 and modify the other buttons accordingly.
