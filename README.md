@@ -1,5 +1,9 @@
 # cassie_alip_mpc_controller
 
+<p align="center">
+<img src="https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/Cassie_Intro_Lateral_Hill.png" alt="drawing" width="300"/>
+</p>
+
 ## Overview
 This repository provides an implementation of a bipedal locomotion controller, described in the paper **Terrain-Adaptive, ALIP-Based Bipedal Locomotion Controller via Model Predictive Control and Virtual Constraints**([pdf](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/Gibson_IROS2022_MPC_Cassie.pdf))([arXiv](https://arxiv.org/abs/2109.14862)). The controller has two components: (1) an Angular Momentum Linear Inverted Pendulum (ALIP)-based Model Predictive Control (MPC) foot placement planner and (2) a gait controller which takes the foot placement solution as an input. This controller enables improved stability for walking on a variety of sloped and textured terrains. The controller is implemented on the Agility Robotics Cassie Robot.
 
@@ -10,10 +14,6 @@ This repository provides an implementation of a bipedal locomotion controller, d
 **View Shortened Results Video** [here](https://www.youtube.com/watch?v=vgXWPKi8Wpo)
 
 **View Extended Results Video** [here](https://www.youtube.com/watch?v=AmPvQMpIHSw)
-
-<p align="center">
-<img src="https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/Cassie_Intro_Lateral_Hill.PNG" alt="drawing" width="400"/>
-</p>
 
 ### Abstract
 This paper presents a gait controller for bipedal robots to achieve highly agile walking over various terrains given local slope and friction cone information. Without these considerations, untimely impacts can cause a robot to trip and inadequate tangential reaction forces at the stance foot can cause slippages. We address these challenges by combining, in a novel manner, a model based on an Angular Momentum Linear Inverted Pendulum (ALIP) and a Model Predictive Control (MPC) foot placement planner that is executed by the method of virtual constraints. The process starts with abstracting from the full dynamics of a Cassie 3D bipedal robot, an exact low-dimensional representation of its center of mass dynamics, parameterized by angular momentum. Under a piecewise planar terrain assumption and the elimination of terms for the angular momentum about the robot's center of mass, the centroidal dynamics about the contact point become linear and have dimension four. Importantly, we include the intra-step dynamics at uniformly-spaced intervals in the MPC formulation so that realistic workspace constraints on the robot's evolution can be imposed from step-to-step. The output of the low-dimensional MPC controller is directly implemented on a high-dimensional Cassie robot through the method of virtual constraints. In experiments, we validate the performance of our control strategy for the robot on a variety of surfaces with varied inclinations and textures.
