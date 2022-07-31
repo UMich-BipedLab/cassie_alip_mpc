@@ -1,0 +1,224 @@
+#-----------------------------------------------------------------------
+# Makefile for SNOPT C/C++ API
+#-----------------------------------------------------------------------
+
+FC                  = @FC@
+FCFLAGS             = @FCFLAGS@
+FCLIBS              = @FCLIBS@
+
+CC                  = @CC@
+CFLAGS              = @CFLAGS@
+
+CXX                 = @CXX@
+CXXFLAGS            = @CXXFLAGS@
+
+LDFLAGS             = -avoid-version
+LTFLAGS             = --quiet
+
+#-----------------------------------------------------------------------
+
+SHELL               = @SHELL@
+LIBTOOL             = @LIBTOOL@
+LIBTOOL_DEPS        = @LIBTOOL_DEPS@
+INSTALL             = @INSTALL@
+
+prefix              = @prefix@
+exec_prefix         = @exec_prefix@
+datarootdir         = @datarootdir@
+datadir             = @datadir@
+libdir              = @libdir@
+
+top_srcdir          = @top_srcdir@
+top_builddir        = @top_builddir@
+
+#-----------------------------------------------------------------------
+blas         = @blas@
+ifeq ($(blas),yes)
+  blasLIB    = @BLAS_LIBS@
+endif
+
+SNOPT_LIB           = -L@snopt_dir@ -lsnopt7
+
+LIBDIR              = $(top_builddir)/lib
+MODDIR              = $(top_builddir)/mod
+
+SNOPT_SRCDIR        = $(top_srcdir)/src
+SNOPT_OBJDIR        = $(top_builddir)/src
+
+SNOPT_C_EX_SRCDIR   = $(top_srcdir)/cexamples
+SNOPT_CPP_EX_SRCDIR = $(top_srcdir)/cppexamples
+
+SNOPT_C_EX_OBJDIR   = $(top_builddir)/cexamples
+SNOPT_CPP_EX_OBJDIR = $(top_builddir)/cppexamples
+
+#-----------------------------------------------------------------------
+
+SNOPT_C_FILES   = snopt_wrapper sqopt_wrapper snopt_cwrap sqopt_cwrap
+SNOPT_CPP_FILES = snopt_wrapper sqopt_wrapper snoptProblem
+
+SNOPT_C_LO   = $(SNOPT_C_FILES:%=$(SNOPT_OBJDIR)/%.lo)
+SNOPT_CPP_LO = $(SNOPT_CPP_FILES:%=$(SNOPT_OBJDIR)/%.lo)
+
+#-----------------------------------------------------------------------
+
+SNOPT_C_EX   = toyA  toyB  toyC  hs118  toyC_w
+SNOPT_CPP_EX = sntoya  sntoyB  sntoyC  catmixa  hs118  sntoyB_w
+
+SNOPT_C_EXAMPLES   = $(SNOPT_C_EX:%=$(SNOPT_C_EX_OBJDIR)/%)
+SNOPT_CPP_EXAMPLES = $(SNOPT_CPP_EX:%=$(SNOPT_CPP_EX_OBJDIR)/%)
+
+#-----------------------------------------------------------------------
+
+MODLOC         = @FC_MODOUT@$(MODDIR)
+MODINC         = @FC_MODINC@$(MODDIR)
+MODFLAGS       = $(MODLOC) $(MODINC)
+
+SNOPT_INCLUDE  = -I$(top_srcdir)/include
+SNOPT_C_LIBS   = -L$(libdir) -lsnopt7_c   $(blasLIB)
+SNOPT_CPP_LIBS = -L$(libdir) -lsnopt7_cpp $(blasLIB)
+
+#-----------------------------------------------------------------------
+
+COMPILE_F    = $(LIBTOOL) --mode=compile --tag=FC  $(LTFLAGS) $(FC)
+LINK_F       = $(LIBTOOL) --mode=link    --tag=FC  $(LTFLAGS) $(FC)
+
+COMPILE_C    = $(LIBTOOL) --mode=compile --tag=CC  $(LTFLAGS) $(CC)
+LINK_C       = $(LIBTOOL) --mode=link    --tag=CC  $(LTFLAGS) $(CC)
+
+COMPILE_CXX  = $(LIBTOOL) --mode=compile --tag=CXX $(LTFLAGS) $(CXX)
+LINK_CXX     = $(LIBTOOL) --mode=link    --tag=CXX $(LTFLAGS) $(CXX)
+
+CLEAN        = $(LIBTOOL) --mode=clean     $(LTFLAGS)
+INSTALL_LIB  = $(LIBTOOL) --mode=install   $(LTFLAGS) $(INSTALL)
+FINISH       = $(LIBTOOL) --mode=finish    $(LTFLAGS)
+UNINSTALL    = $(LIBTOOL) --mode=uninstall $(LTFLAGS)
+
+#-----------------------------------------------------------------------
+
+all: snopt_c snopt_cpp
+
+examples: examples_snopt_c examples_snopt_cpp
+examples_c: examples_snopt_c
+examples_cpp: examples_snopt_cpp
+
+examples_snopt_c: snopt_c $(SNOPT_C_EX_OBJDIR) $(SNOPT_C_EXAMPLES)
+examples_snopt_cpp: snopt_cpp $(SNOPT_CPP_EX_OBJDIR) $(SNOPT_CPP_EXAMPLES)
+
+install: install_cpp install_c
+uninstall: uninstall_cpp uninstall_c
+
+snopt_c:   $(MODDIR) $(LIBDIR) $(LIBDIR)/libsnopt7_c.la
+snopt_cpp: $(MODDIR) $(LIBDIR) $(LIBDIR)/libsnopt7_cpp.la
+
+install_c: snopt_c $(libdir)
+	$(INSTALL_LIB) $(LIBDIR)/libsnopt7_c.la $(libdir)
+	$(FINISH) $(libdir)
+
+uninstall_c:
+	$(UNINSTALL) rm -f $(libdir)/libsnopt7_c.la
+	$(CLEAN) rm -f $(LIBDIR)/libsnopt7_c.la
+
+#-----------------------------------------------------------------------
+
+install_cpp: snopt_cpp $(libdir)
+	$(INSTALL_LIB) $(LIBDIR)/libsnopt7_cpp.la $(libdir)
+	$(FINISH) $(libdir)
+
+uninstall_cpp:
+	$(UNINSTALL) rm -f $(libdir)/libsnopt7_cpp.la
+	$(CLEAN) rm -f $(LIBDIR)/libsnopt7_cpp.la
+
+#-----------------------------------------------------------------------
+
+$(LIBDIR)/libsnopt7_cpp.la: $(SNOPT_CPP_LO)
+	$(LINK_F) $(LDFLAGS) $(CXXFLAGS) -o $@ $^ $(SNOPT_LIB) -rpath $(libdir)
+
+$(LIBDIR)/libsnopt7_c.la: $(SNOPT_C_LO)
+	$(LINK_F) $(LDFLAGS) $(CFLAGS) -o $@ $^ $(SNOPT_LIB) -rpath $(libdir)
+
+#-----------------------------------------------------------------------
+
+$(SNOPT_OBJDIR)/%.lo: $(SNOPT_SRCDIR)/%.f90
+	$(COMPILE_F)   -c $(FCFLAGS) $(MODFLAGS) $(SNOPT_INCLUDE) $< -o $@
+
+$(SNOPT_OBJDIR)/%.lo: $(SNOPT_SRCDIR)/%.c
+	$(COMPILE_C)   -c $(CFLAGS) $(SNOPT_INCLUDE) $< -o $@
+
+$(SNOPT_OBJDIR)/%.lo: $(SNOPT_SRCDIR)/%.cpp
+	$(COMPILE_CXX) -c $(CXXFLAGS) $(SNOPT_INCLUDE) $< -o $@
+
+#-----------------------------------------------------------------------
+
+$(SNOPT_C_EX_OBJDIR)/%: $(SNOPT_C_EX_OBJDIR)/%.lo
+	$(LINK_C) $(CFLAGS) $^ -o $@ $(SNOPT_C_LIBS) $(FCLIBS)
+
+$(SNOPT_C_EX_OBJDIR)/%.lo : $(SNOPT_C_EX_SRCDIR)/%.c
+	$(COMPILE_C) $(CFLAGS) $(SNOPT_INCLUDE) -c $< -o $@
+
+#-----------------------------------------------------------------------
+
+$(SNOPT_CPP_EX_OBJDIR)/%: $(SNOPT_CPP_EX_OBJDIR)/%.lo
+	$(LINK_CXX) $(CXXFLAGS) $^ -o $@ $(SNOPT_CPP_LIBS) $(FCLIBS)
+
+$(SNOPT_CPP_EX_OBJDIR)/%.lo: $(SNOPT_CPP_EX_SRCDIR)/%.cpp
+	$(COMPILE_CXX) $(CXXFLAGS) $(SNOPT_INCLUDE) -c $< -o $@
+
+#-----------------------------------------------------------------------
+
+$(top_builddir):
+	if [ ! -d $(top_builddir) ]; then mkdir $(top_builddir); fi
+
+$(libdir):
+	if [ ! -d $(libdir) ]; then mkdir $(libdir); fi
+
+$(LIBDIR):
+	if [ ! -d $(LIBDIR) ]; then mkdir $(LIBDIR); fi
+
+$(MODDIR): $(top_builddir)
+	if [ ! -d $(MODDIR) ]; then mkdir $(MODDIR); fi
+
+$(SNOPT_OBJDIR): $(top_builddir)
+	if [ ! -d $(SNOPT_OBJDIR) ]; then mkdir $(SNOPT_OBJDIR); fi
+
+$(SNOPT_C_EX_OBJDIR): $(top_builddir)
+	if [ ! -d $(SNOPT_C_EX_OBJDIR) ]; then mkdir $(SNOPT_C_EX_OBJDIR); fi
+
+$(SNOPT_CPP_EX_OBJDIR): $(top_builddir)
+	if [ ! -d $(SNOPT_CPP_EX_OBJDIR) ]; then mkdir $(SNOPT_CPP_EX_OBJDIR); fi
+
+#-----------------------------------------------------------------------
+
+clean:
+	$(CLEAN) rm -f $(SNOPT_OBJDIR)/*.lo
+	$(CLEAN) rm -f $(SNOPT_CPP_EX_OBJDIR)/*.lo
+	$(CLEAN) rm -f $(SNOPT_C_EX_OBJDIR)/*.lo
+
+veryclean: clean
+	$(CLEAN) rm -f $(SNOPT_C_EX_OBJDIR)/*.out
+	$(CLEAN) rm -f $(SNOPT_CPP_EXAMPLES)
+	$(CLEAN) rm -f $(SNOPT_C_EXAMPLES)
+	$(CLEAN) rm -f $(SNOPT_CPP_EX_OBJDIR)/*.out
+
+distclean: veryclean
+	-rm -rf $(LIBDIR) $(MODDIR)
+	-rm -f config.cache config.log config.status Makefile libtool
+
+#-----------------------------------------------------------------------
+
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status libtool
+
+config.status:  $(top_srcdir)/configure
+	./config.status --recheck
+
+Makefile: $(top_srcdir)/Makefile.in $(top_builddir)/config.status
+	./config.status
+
+#-----------------------------------------------------------------------
+
+.PRECIOUS: $(SNOPT_C_EX_OBJDIR)/%.lo
+
+.PHONY: all examples install uninstall snopt_c snopt_cpp \
+        examples_snopt_c examples_snopt_cpp \
+        install_c install_cpp uninstall_c uninstall_cpp \
+        clean

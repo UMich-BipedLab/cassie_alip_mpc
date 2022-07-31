@@ -1,0 +1,1 @@
+- To make each type of boot drive, copy the contents of either DataLogTransfer/ or RealTimeModel/ to the root of the drive after installing FreeDOS

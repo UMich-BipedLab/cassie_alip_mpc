@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make ",
+            "type": "shell",
+            "command": "mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "make clean",
+            "type": "shell",
+            "command": "rm -rf build",
+            "problemMatcher": [],
+            "group": "build"
+        }
+    ]
+}

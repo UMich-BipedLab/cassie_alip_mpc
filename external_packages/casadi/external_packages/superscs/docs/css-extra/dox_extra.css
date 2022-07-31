@@ -1,0 +1,61 @@
+code {
+	color: DarkOliveGreen;
+}
+
+body, table, div, p, dl {
+    color: #332;
+    font: 400 19px/22px Roboto,sans-serif;
+}
+
+h1:not(:first-child) {
+    margin-top: 50px;
+}
+
+h2:not(:first-child)
+{
+    margin-top: 25px;
+}
+
+
+div.image img[src="Alg1.png"],div.image img[src="Alg2.png"]
+{ 
+    width: 45%;    
+}
+div.image img[src="main-fig.png"]
+{ 
+    width:450px; 
+}
+div.image img[src="applications.png"]
+{ 
+    width: 80%;    
+}
+
+img[src="logo.png"]
+{
+    width: 40%;
+    position: relative;
+    float: left;
+    margin: 2px 0px 4px 25px;
+}
+div.line {
+    font-size: 18px;
+}
+
+div.fragment {
+    margin-left: 20px;
+    margin-right: 30px;
+}
+
+div.sec {
+    font: 400 24px/22px Roboto,sans-serif;
+    font-weight: bold;
+}
+
+div.sec:not(:first-child) {
+    margin-top: 50px;
+}
+
+a.el {
+    font-weight: normal;
+}
+

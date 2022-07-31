@@ -1,0 +1,23 @@
+Code quality and compliance:
+
+- [ ]  Make sure there is adequate testing.
+- [ ]  Run `make COV=1 cov`; inspect the results
+- [ ]  Run `cppcheck`
+- [ ]  All unit tests pass on [travis CI](https://travis-ci.org/kul-forbes/scs)
+- [ ]  ... and on [Appveyor](https://ci.appveyor.com/project/alphaville/scs/history)
+- [ ]  Valgrind does not return any errors (`make run-tests-mem`)
+- [ ]  The profiler (`make PF=1 profile`) works
+- [ ]  The Python interface compiles and works correctly
+- [ ]  The MEX interface works properly
+- [ ]  All necessary files (e.g., images) have been committed
+- [ ] `make docs` does not report any errors/warnings
+- [ ]  Inspect the documentation
+- [ ]  The version number has been updated in the C code,
+- [ ]  ... and in Doxygen (`Doxyfile`)
+- [ ]  ... and in Docker (`Dockerfile`)
+- [ ]  Docker image builds successfully
+- [ ]  Docker hub has been updated
+- [ ]  A pull request has preferably been created
+- [ ]  Changelog has been updated
+- [ ]  Make sure there are no important [issues](https://github.com/kul-forbes/scs/issues)
+- [ ]  Check out [Trello](https://trello.com/b/YMcZoJN9/superscs)

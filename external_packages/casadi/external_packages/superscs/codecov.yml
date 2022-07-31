@@ -1,0 +1,11 @@
+ignore:
+- 'linsys/'
+- 'include/'
+- 'tests/'
+- 'examples/'
+coverage:
+  notify:
+    gitter:
+      default:
+        url: "https://webhooks.gitter.im/e/413cea61e086f1c491d8"
+        threshold: 0.5%

@@ -1,0 +1,32 @@
+build*
+.vscode
+*install*
+obj-x86_64-linux-gnu
+*.edited
+*.pyc
+*~
+*.so
+*.orig
+*.swp
+
+test/python/*.c
+
+# documentation
+docs/api/html
+docs/api/internal
+docs/api/XML
+docs/api/XML_internal
+docs/api/latex
+docs/tutorials/cpp/casadi-doc
+docs/tutorials/cpp/casadi-doc.pdf
+docs/users_guide/casadi-users_guide
+docs/users_guide/temp
+docs/examples/_temp*
+documentation/examples/ctemplate/compiler.sh
+documentation/examples/ctemplate/linker.sh
+
+# joel
+experimental/joel/cuter/cuter_source
+experimental/joel/cuter/orfe.princeton.edu
+experimental/joel/cuter/cuter_selected
+external_packages/ColPack

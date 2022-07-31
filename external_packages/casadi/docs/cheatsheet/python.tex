@@ -1,0 +1,135 @@
+\documentclass[a4paper,8pt]{article}
+
+\usepackage{fullpage}
+\usepackage{multirow}
+\usepackage{multicol}
+\begin{document}
+
+\title{CasADi Python cheatsheet}
+\date{}
+\maketitle
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ll|ll}
+ & & dense & sparse \\
+\hline
+\multirow{2}{*}{SX} & sym & \verb|SX.sym("x",n,m)|  & \verb|SX.sym("x",sp)| \\ 
+    & num & \verb|SX(d)|   & \verb|SX(sp,d)| \\
+\hline
+\multirow{2}{*}{MX} & sym &  \verb|MX.sym("x",n,m)|  & \verb|MX.sym("x",sp)|\\
+    & num & \verb|MX(d)| &  \verb|MX(DM(sp,d))| \\
+\hline
+    & DM &  \verb|DM(d)|  & \verb|DM(sp,d)| \\
+\end{tabular}
+
+\caption{\texttt{d} is a real number, \texttt{n} and \texttt{m} are integers }
+\label{tab:constr}
+\end{table}
+
+\begin{multicols}{2}
+
+\paragraph{Header}
+\begin{verbatim}
+  from casadi import *
+\end{verbatim}
+
+\paragraph{SX}
+\begin{verbatim}
+  x = SX.sym("x")
+  y = SX.sym("y",10,2)
+  a,b,c = SX.sym("[a,b,c]")
+\end{verbatim}
+
+\paragraph{MX}
+\begin{verbatim}
+  x = MX.sym("x")
+  y = MX.sym("y",10,2)
+\end{verbatim}
+%   a,b,c = MX.sym("[a,b,c]")
+
+\paragraph{Transpose}
+\begin{verbatim}
+  B = A.T
+\end{verbatim}
+
+\paragraph{Products}
+\begin{verbatim}
+  v = mtimes(A,x)  # Matrix product
+  v = mtimes([x.T,A,x])  # Matrix product
+  v = A*A       # Element-wise product
+\end{verbatim}
+
+\paragraph{Concatentation}
+\begin{verbatim}
+  x = vertcat([a,b,c])
+  x = horzcat([a,b,c])
+\end{verbatim}
+
+\paragraph{Reshaping}
+\begin{verbatim}
+  column_matrix = vec(m)
+  reshaped_matrix = reshape(m,[3,4])
+\end{verbatim}
+
+\paragraph{Slicing}
+\begin{verbatim}
+  x[0,0]
+  x[:,0]
+  x[-1,:]
+\end{verbatim}
+
+\paragraph{Calculus}
+\begin{verbatim}
+  jacobian(sin(a)*b + c,vertcat([a,b,c]))
+\end{verbatim}
+
+\paragraph{Function SISO}
+
+\begin{verbatim}
+  f = SXFunction('f', [x],[x**2])
+\end{verbatim}
+
+\paragraph{Function MIMO}
+\begin{verbatim}
+  g = SXFunction('g', [x,y],[x**2,x*y,vertcat([x,2*x])])
+\end{verbatim}
+
+\paragraph{Function MIMO with scheme}
+\begin{verbatim}
+  solver = SXFunction('nlp',
+    nlpIn(x=x),
+    nlpOut(f=f,g=vertcat([x,2*x]))
+  )
+\end{verbatim}
+
+\paragraph{Evaluate SISO}
+
+\begin{verbatim}
+  f.setInput(3)
+  f.evaluate()
+  print f.getOutput()
+\end{verbatim}
+
+\paragraph{Evaluate MIMO}
+\begin{verbatim}
+  g.setInput(5,0)
+  g.setInput(range(20),1)
+  g.evaluate()
+  print g.getOutput(0), g.getOutput(1)
+\end{verbatim}
+
+\paragraph{Evaluate MIMO with scheme}
+\begin{verbatim}
+  solver.setInput(5,"x")
+  solver.evaluate()
+  print solver.getOutput("f"), solver.getOutput("g")
+\end{verbatim}
+
+\paragraph{Caveats in Python}
+\begin{verbatim}
+  1/2 # integer division => 0
+\end{verbatim}
+\end{multicols}
+
+\end{document}

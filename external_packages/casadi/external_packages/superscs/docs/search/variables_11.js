@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['s',['S',['../structscs__direction__cache.html#a10bb3a9b693e18f175ccf7045b465e33',1,'scs_direction_cache::S()'],['../structscs__cone.html#ad03ed58d9b174c4e9ed28fdf0552f74a',1,'scs_cone::s()'],['../structscs__solution.html#af3e9d317ab1d49503141834552be45ab',1,'scs_solution::s()']]],
+  ['s_5fb',['s_b',['../structscs__work.html#a5e28fcd9b1e8104d36d3376263140cab',1,'scs_work']]],
+  ['s_5fminus_5fy',['S_minus_Y',['../structscs__direction__cache.html#a80eb869a89780493714600fd7bb47443',1,'scs_direction_cache']]],
+  ['sc_5fb',['sc_b',['../structscs__work.html#a0fe5bffa0ac061d8b45a197ef97f7fec',1,'scs_work']]],
+  ['sc_5fc',['sc_c',['../structscs__work.html#a89afffcda39d156a3927da9f1e1decf2',1,'scs_work']]],
+  ['scal',['scal',['../structscs__work.html#abd3f662b78689b435b7e7f405c4f6a5c',1,'scs_work']]],
+  ['scale',['scale',['../structscs__settings.html#a15d7c4d64c93b547448e6d682793e6af',1,'scs_settings']]],
+  ['setuptime',['setupTime',['../structscs__info.html#a737206389622dc55e144f5c27a554069',1,'scs_info']]],
+  ['sigma',['sigma',['../structscs__settings.html#a127eed9b06de5903806821b4d6700c9a',1,'scs_settings']]],
+  ['sk',['Sk',['../structscs__work.html#a2fe0e4a3887a0a7ef034347ed0f6a065',1,'scs_work']]],
+  ['solvetime',['solveTime',['../structscs__info.html#a44176a047013546abef2b3a5935dfa97',1,'scs_info']]],
+  ['sse',['sse',['../structscs__settings.html#a5e40b12249d561d4d9d0846f357e2bd5',1,'scs_settings']]],
+  ['ssize',['ssize',['../structscs__cone.html#a5fe4cf9ee168d3bc8da9f2de4e78bbf3',1,'scs_cone']]],
+  ['status',['status',['../structscs__info.html#acff58acd5d040dedd010d40792c92f14',1,'scs_info']]],
+  ['statusval',['statusVal',['../structscs__info.html#aac2e43268116ffd134e5cb413e785b88',1,'scs_info']]],
+  ['stepsize',['stepsize',['../structscs__work.html#adbad4ed3fb42bf0d353cecf670ed7d65',1,'scs_work']]],
+  ['stgs',['stgs',['../structscs__work.html#adfeab9c94401aea40a90eb61a6307160',1,'scs_work::stgs()'],['../structscs__data.html#adfeab9c94401aea40a90eb61a6307160',1,'scs_data::stgs()']]]
+];

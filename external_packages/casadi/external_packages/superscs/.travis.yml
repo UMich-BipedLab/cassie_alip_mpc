@@ -1,0 +1,51 @@
+language: C
+sudo: required
+matrix:
+    include:
+        - os: linux
+          dist: trusty
+          compiler: gcc
+          env: 
+            - SCS_RUN_COV=1
+            - SCS_RUN_PYTHON=1
+        - os: linux
+          dist: precise
+          compiler: gcc
+          env: 
+            - SCS_RUN_COV=0
+            - SCS_RUN_PYTHON=0
+        - os: linux
+          dist: trusty
+          compiler: clang
+          env: 
+            - SCS_RUN_COV=0
+            - SCS_RUN_PYTHON=0
+        - os: osx
+          compiler: gcc
+          env: 
+            - SCS_RUN_COV=0
+            - SCS_RUN_PYTHON=1
+        - os: osx
+          compiler: clang
+          env: 
+            - SCS_RUN_COV=0
+            - SCS_RUN_PYTHON=0
+addons:
+  apt:
+    packages:
+      - libblas-dev
+      - liblapack-dev
+      - lcov
+      - python-numpy
+      - python-scipy
+before_install:
+  - chmod a+x ./.travis/*.sh
+  - ./.travis/scs_before_install.sh      
+install:
+  - ./.travis/scs_install.sh
+script:     
+  - ./.travis/scs_script.sh 
+after_success:  
+  - ./.travis/scs_after_success.sh
+cache:  
+  apt: true

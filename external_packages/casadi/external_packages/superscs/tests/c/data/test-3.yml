@@ -1,0 +1,51 @@
+--- # SuperSCS Problem
+# In this file we write comments here and there to test that the parser can 
+# deal with YAML files with comments
+meta:
+    id: 'http://superscs.org/problem/test-problem-3'
+    date: '11-Apr-2018 10:08:34'
+    creator: 'SuperSCS'
+    # Minimum YAML version required
+    yamlVersion: '1.2'
+    license: 'https://github.com/kul-forbes/scs/blob/master/LICENSE.txt'
+problem:
+    # problem starts here
+    name: 'test-problem-3'
+    # also new lines are allowed
+        
+    A: 
+        # inline comments are allowed....
+        m: 15   # row dimension of A
+        n: 4    # column dimension of A        
+        # more comments
+        # empty lines are allowed here
+        
+        nnz: 15 # number of nonzeros
+        # matrix data
+        a: [0.252982,0.386571,0.600743,0.545203,0.375576,0.623916,0.972684,0.216089,0.408444,0.401495,0.197685,0.163842,0.436147,0.866289,0.521696]
+        # array I
+        I: [0,5,6,10,15]
+        # array J
+        J: [2,5,8,11,14,13,0,1,9,12,3,4,6,7,10]
+        
+        
+    b: [0.602533,0.786667,0.35368,0.654741,0.724931,0.995501,0.462854,0.737557,0.291446,0.597794,0.282445,1.01838,0.531822,0.930188,0.516776]
+    
+    c: [0.904668,0.404825,0.331175,0.572139]
+    K:
+        
+        # comments here are also allowed
+        # both in separate lines and in-line
+        
+        q: 2            # SOC
+        l: 1            # linear
+        # also new lines are allowed
+        # note that K.f and K.ed have been omitted
+                
+        s: [2,3]        # PSD
+        ep: 1           # Primal exponential
+        p: []           # Power
+        #psize: omitted (psize = 0)
+        qsize: 1        # Number of SOC cones
+        ssize: 2        # Number of PSD cones
+...

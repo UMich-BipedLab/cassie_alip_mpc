@@ -1,0 +1,6 @@
+function Cov_q_measured = get_Cov_q_measured(obj)
+Cov_q_measured = diag([obj.Cov_Euler(1,1); obj.Cov_Euler(2,2); obj.Cov_Euler(3,3);...
+                        obj.CovPos_abduction; obj.CovPos_rotation; obj.CovPos_thigh; obj.CovPos_knee; obj.CovPos_qj1; obj.CovPos_qj2; obj.CovPos_toe; ... 
+                        obj.CovPos_abduction; obj.CovPos_rotation; obj.CovPos_thigh; obj.CovPos_knee; obj.CovPos_qj1; obj.CovPos_qj2; obj.CovPos_toe]);
+end
+
