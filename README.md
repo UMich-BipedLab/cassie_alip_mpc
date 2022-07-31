@@ -16,7 +16,7 @@ This paper presents a gait controller for bipedal robots to achieve highly agile
 
 ### Contents
 - [Overview](#overview)
-- [How the Controller Works](#how-the-controller-work)
+- [How the Controller Works](#how-the-controller-works)
 - [Simulation Tests](#simulation-tests)
     - [Networking (Simulation)](#networking-simulation)
     - [Building the ALIP-MPC Foot Placement Executable on the Linux Computer](#building-the-alip-mpc-foot-placement-executable-on-the-linux-computer)
@@ -26,7 +26,7 @@ This paper presents a gait controller for bipedal robots to achieve highly agile
 - [Cassie Hardware Tests](#cassie-hardware-tests)
 
 ### Repository Organization
-The code is organized as follows
+The code is organized as follows:
 ```
 .
 ├── codegen_alip_mpc
@@ -38,13 +38,13 @@ The code is organized as follows
 1. `codegen_alip_mpc`
     - Contains MATLAB and CasADi code that was used to formulate and code-generate the foot placement planner for C++.
 2. `cpp_alip_mpc`
-    - CMake workspace used to build and run foot placement executable
+    - CMake workspace used to build and run foot placement executable.
 3. `external_packages`
-    - Contains CasADi packages
+    - Contains CasADi packages.
 4.  `matlab_alip_mpc`
     - Contains MATLAB/Simulink files used for simulating the controller in Simscape Mechanics and building the Simulink RealTime controller.
 5.  `media`
-    - Miscellaneous images and files for this readme
+    - Miscellaneous images and files for this readme.
 ### Requirements
 * Hardware
   * Windows 10 Computer
@@ -52,7 +52,7 @@ The code is organized as follows
   * Ubuntu 18.04 Computer
   * Ethernet Cables
   * [Agility Robotics Cassie Robot](https://github.com/agilityrobotics/cassie-doc/wiki) (needed for experimental tests only)
-    - Basic understanding of building/operating controllers on Cassie
+    - Basic understanding of building/operating controllers on Cassie.
 * Software
   * On Windows Computer
     - this repo
@@ -76,14 +76,14 @@ The following section describes how to run the controller in simulation.
 * Create an ethernet connection between the **Windows 10** computer (running the Simulink Cassie Controller) and the **Linux Computer** (running the MPC footplacement algorithm)
 #### Set up Windows Ethernet settings
   - On the Windows computer, go to `Network and Sharing Center->Change Adapter options`. Right-click your Ethernet connection and select properties. 
-  - Make sure Internet Protocol Version 6 (TCP/IPv6) is unchecked
-  - Check and double-click Internet Protocol Version 4 (TCP/IPv4). Make sure `Obtain an IP address automatically` and `Obtain DNS server address automatically` are selected
+  - Make sure Internet Protocol Version 6 (TCP/IPv6) is unchecked.
+  - Check and double-click Internet Protocol Version 4 (TCP/IPv4). Make sure `Obtain an IP address automatically` and `Obtain DNS server address automatically` are selected.
 #### Set up Linux Ethernet settings
   - On Linux computer, navigate to `Settings->Network->Wired`. Create a new connection by clicking the + button.
-  - Select the `Identity` tab and enter a unique ID
-  - Select the `IPv4` tab and enter a valid Address. The first 2 sequence of digits should match the ethernet address from the Windows computer (you can find this by running `ipconfig` in the command prompt). The next 2 can be uniquely made up. The Netmask should be set to `255.255.0.0`
-    - Example Windows Ethernet IP Address: `169.254.24.246` with matching example Linux Ethernet IP Address: `169.254.252.150`
-* You should now have a working connection. Check this by pinging each computer from the other
+  - Select the `Identity` tab and enter a unique ID.
+  - Select the `IPv4` tab and enter a valid Address. The first 2 sequence of digits should match the ethernet address from the Windows computer (you can find this by running `ipconfig` in the command prompt). The next 2 can be uniquely made up. The Netmask should be set to `255.255.0.0`.
+    - Example Windows Ethernet IP Address: `169.254.24.246` with matching example Linux Ethernet IP Address: `169.254.252.150`.
+* You should now have a working connection. Check this by pinging each computer from each other.
   - An example result from the Windows computer would return
   ```
   C:\Users\gibso>ping 169.254.252.150
@@ -121,7 +121,7 @@ This section gives instructions for building and running the foot placement comp
 2. Build Executables with CMAKE
    * We use Visual Studio code to build the executables. Open a VSCode workspace with `cpp_alip_mpc/` the top directory. To build
      * Press `CTRL-SHIFT-B` and select `make`. This will create a new build directory and call the `cmake` and `make` commands. You can alternatively do this via the terminal.
-     * Selecting `make clean` with remove the `build/` directory
+     * Selecting `make clean` with remove the `build/` directory.
    * If this is your first build on the Linux Computer you need to re-create shared object libraries for the code-generated casadi mpc solvers in `cpp_alip_mpc/src/solvers/mpc`. 
    ```
    cd src/solvers/mpc
@@ -161,26 +161,26 @@ This section gives instructions for building and running the foot placement comp
 1. Open MATLAB 2017b with `matlab_alip_mpc` as the top directory. 
     - Run `start_up_sim.m`
         - Opens all files that may require additional edits (IP address changes, initial simulator configurations, reference commands, etc).
-    - In `CustomInitFcn_wth_standing.m` change the `udp_linux_ip_address` variable to match the ip address of the linux computer explained [here](#set-up-linux-ethernet-settings)
+    - In `CustomInitFcn_wth_standing.m` change the `udp_linux_ip_address` variable to match the ip address of the linux computer explained [here](#set-up-linux-ethernet-settings).
 
 ### Default Test
-The default test has cassie initially stand, walk-in-place, and then walk down a 5 degree lateral slope (shown below)
+The default test has cassie initially stand, walk-in-place, and then walk down a 5 degree lateral slope (shown below).
 ![Alt Text](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/cassie_default_test_slow.gif)
 
 To re-create follow these steps
 - On the **Linux Computer**
     - Make sure the foot placement controller has been built by following the [steps above](#building-the-alip-mpc-foot-placement-executable-on-the-linux-computer). 
-    - Open a terminal, navigate to the build directory (```cd cpp_alip_mpc/build/```)
+    - Open a terminal, navigate to the build directory (```cd cpp_alip_mpc/build/```).
     - Type ```./cassie_alip_mpc simulator``` but **wait to press enter** until the simulator is running.
 - On the **Windows Computer**
-    - Open `Mpc_SimMechanics_with_standing.slx`
-    - Click the play button
-        - You should see the Simscape Mechanics Explorer window appear
-- Once the simulator starts running (you see the time increasing in the Mechanics Explorer window), **run the executable on the Linux Computer**
+    - Open `Mpc_SimMechanics_with_standing.slx`.
+    - Click the play button.
+        - You should see the Simscape Mechanics Explorer window appear.
+- Once the simulator starts running (you see the time increasing in the Mechanics Explorer window), **run the executable on the Linux Computer**.
     - You do not need to hit it immediately. If you run the foot placement controller too quickly the UDP connection can sometimes have issues.  
 
 **Tips**
-- Make sure to **wait until the simulator is running on the Windows computer** prior to running the ```./cassie_alip_mpc``` executable
+- Make sure to **wait until the simulator is running on the Windows computer** prior to running the ```./cassie_alip_mpc``` executable.
     
 ### Advanced Settings
 **Modifying Reference Commands**
@@ -189,11 +189,11 @@ To re-create follow these steps
 - Modify values inside the spoofer script to change references like velocity, slope, friction, step width, step clearance, etc.
 
 **Modifying Terrain Slope**
-- The ground slope can be modified by changing variables in the `simulationInitFcn_with_standing.m` file
+- The ground slope can be modified by changing variables in the `simulationInitFcn_with_standing.m` file.
     - Change the `alpha_x` and `alpha_y` varibles to do so.
 - You should also change the slope estimate that the controller uses. To do so, change `RadioButton.RSA` and `RadioButton.LSA` to values between -1 and 1.
     - By default the 1 corresponds to a slope of 22 deg. 
-    - To match the 5 degree lateral slope in the default example `RadioButton.LSA` is set equal to `5/22 = 0.2274`
+    - To match the 5 degree lateral slope in the default example `RadioButton.LSA` is set equal to `5/22 = 0.2274`.
 - You can alternatively choose incorrect slope estimates to see how the controller reacts.
 ![image info](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/slope_change.png)
 
@@ -208,20 +208,20 @@ To re-create follow these steps
 
 ### Building Simulink RealTime Controller
 - Open `Mpc_RealTime_with_standing.slx`. Press `CTRL-D` and Press build.
-- Create Bootable USB and copy controller files according to Agility Robotics documentation [here](https://github.com/agilityrobotics/cassie-doc/wiki/Creating-Standalone-Application)
+- Create Bootable USB and copy controller files according to Agility Robotics documentation [here](https://github.com/agilityrobotics/cassie-doc/wiki/Creating-Standalone-Application).
 
 ### Using the Controller
-- Plug the bootable USB with the controller into Cassie's computer
-- Connect Ethernet cables between the main Cassie computer and a secondary **Linux Computer**
-- For experimental tests, an ethernet connection between the onboard **Cassie Computer** and secondary **Linux Computer** is needed. After starting up Cassie and connecting the cables, follow the instructions for creating a new connection [detailed above](#set-up-linux-ethernet-settings)
+- Plug the bootable USB with the controller into Cassie's computer.
+- Connect Ethernet cables between the main Cassie computer and a secondary **Linux Computer**.
+- For experimental tests, an ethernet connection between the onboard **Cassie Computer** and secondary **Linux Computer** is needed. After starting up Cassie and connecting the cables, follow the instructions for creating a new connection [detailed above](#set-up-linux-ethernet-settings).
     * The **Cassie Computer** IP Address is set to `10.10.10.3`.
     * Set the new **Linux Computer** IP Address to `10.10.10.150` and the netmask to `255.255.0.0`.
-    * Check the connection once the robot is on and the radio transmitter has connected
+    * Check the connection once the robot is on and the radio transmitter has connected.
     ```
     ping 10.10.10.3
     ```
 - Turn on Cassie and run the homing procedure according to the [Agility Robotics documentation](https://github.com/agilityrobotics/cassie-doc/wiki/Robot-Operation#homing-procedure).
-- Run the foot placement executable on the **Linux Computer**
+- Run the foot placement executable on the **Linux Computer**.
 ```
 cd cpp_alip_mpc/build
 ./cassie_alip_mpc cassie
