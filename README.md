@@ -1,1 +1,1 @@
-# cassie_alip_mpc
+# cassie_alip_mpc_controller
