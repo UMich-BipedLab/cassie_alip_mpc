@@ -1,11 +1,11 @@
-# cassie_alip_mpc_controller
+# cassie_alip_mpc
 
 <p align="center">
-<img src="https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/Cassie_Intro_Lateral_Hill.png" alt="drawing" width="300"/>
+<img src="https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/media/Cassie_Intro_Lateral_Hill.png" alt="drawing" width="300"/>
 </p>
 
 ## Overview
-This repository provides an implementation of a bipedal locomotion controller, described in the paper **Terrain-Adaptive, ALIP-Based Bipedal Locomotion Controller via Model Predictive Control and Virtual Constraints**([pdf](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/Gibson_IROS2022_MPC_Cassie.pdf))([arXiv](https://arxiv.org/abs/2109.14862)). The controller has two components: (1) an Angular Momentum Linear Inverted Pendulum (ALIP)-based Model Predictive Control (MPC) foot placement planner and (2) a gait controller which takes the foot placement solution as an input. This controller enables improved stability for walking on a variety of sloped and textured terrains. The controller is implemented on the Agility Robotics Cassie Robot.
+This repository provides an implementation of a bipedal locomotion controller, described in the paper **Terrain-Adaptive, ALIP-Based Bipedal Locomotion Controller via Model Predictive Control and Virtual Constraints**([pdf](https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/media/Gibson_IROS2022_MPC_Cassie.pdf))([arXiv](https://arxiv.org/abs/2109.14862)). The controller has two components: (1) an Angular Momentum Linear Inverted Pendulum (ALIP)-based Model Predictive Control (MPC) foot placement planner and (2) a gait controller which takes the foot placement solution as an input. This controller enables improved stability for walking on a variety of sloped and textured terrains. The controller is implemented on the Agility Robotics Cassie Robot.
 
 * Authors: Grant Gibson, Oluwami Dosunmu-Ogunbi, Yukai Gong, and Jessy Grizzle
 * Maintainer: Grant Gibson (grantgib@umich.edu)
@@ -69,7 +69,7 @@ The code is organized as follows:
 ## How the Controller Works
 A schematic is shown below that describes how the controller and cassie system are integrated. The controller is separated into two components due to computational limitations of the Cassie Simulink RealTime computer (fixed frequency of 2kHz). The foot placement planner portion is run on a secondary Linux computer. [CasADi](https://web.casadi.org/) was used to formulate and code generate an optimization problem described in the (paper)[]. The gait controller is run on the main computer and sends torques to the robot to execute. These commands are computed using the method of virtual constraints and inverse kinematics passivity-based control.
 <p align="center">
-<img src="https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/block_diagram_schematic.PNG" alt="drawing" width="600"/>
+<img src="https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/media/block_diagram_schematic.PNG" alt="drawing" width="600"/>
 </p>
 
 ## Simulation Tests
@@ -169,7 +169,7 @@ This section gives instructions for building and running the foot placement comp
 
 ### Default Test
 The default test has cassie initially stand, walk-in-place, and then walk down a 5 degree lateral slope (shown below).
-![Alt Text](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/cassie_default_test_slow.gif)
+![Alt Text](https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/media/cassie_default_test_slow.gif)
 
 To re-create follow these steps
 - On the **Linux Computer**
@@ -199,11 +199,11 @@ To re-create follow these steps
     - By default the 1 corresponds to a slope of 22 deg. 
     - To match the 5 degree lateral slope in the default example `RadioButton.LSA` is set equal to `5/22 = 0.2274`.
 - You can alternatively choose incorrect slope estimates to see how the controller reacts.
-![image info](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/slope_change.png)
+![image info](https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/media/slope_change.png)
 
 **Modifying Friction**
 - In `RemoteSpoofer_with_standing.m` change the `RadioButton.SCA` variable.
-![image info](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/media/friction_change.png)
+![image info](https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/media/friction_change.png)
 
 ## Cassie Hardware Tests
 **Click images for videos of Experiments**.
@@ -230,7 +230,7 @@ To re-create follow these steps
 cd cpp_alip_mpc/build
 ./cassie_alip_mpc cassie
 ```
-- Set the radio transmitter buttons to the default values used in the Remote Spoofer [file](https://github.com/UMich-BipedLab/cassie_alip_mpc_controller/blob/main/matlab_alip_mpc/Custom_Code/RemoteSpoofer_with_standing.m). Adjust the `LS` and `RS` buttons such that they are 0 to represent flat ground.
+- Set the radio transmitter buttons to the default values used in the Remote Spoofer [file](https://github.com/UMich-BipedLab/cassie_alip_mpc/blob/main/matlab_alip_mpc/Custom_Code/RemoteSpoofer_with_standing.m). Adjust the `LS` and `RS` buttons such that they are 0 to represent flat ground.
     - The manual can be found [here](https://www.frsky-rc.com/wp-content/uploads/Downloads/Manual/X9DP/X9D%20PLUS-manual.pdf).
 - Start the controller in standing mode by setting `SB` to 0 and enable the torques by setting `SA` to 1.
 - Switch controller modes to walking by setting `SB` to 1 and modify the other buttons accordingly.
