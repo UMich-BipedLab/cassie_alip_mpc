@@ -1,7 +1,7 @@
 # cassie_alip_mpc_controller
 
 ## Overview
-This repository provides an implementation of a bipedal locomotion controller, described in the paper **Terrain-Adaptive, ALIP-Based Bipedal Locomotion Controller via Model Predictive Control and Virtual Constraints**([pdf](https://github.com/grantgib/cassie_alip_mpc_iros_private/blob/main/media/Gibson_IROS2022_MPC_Cassie.pdf))([arXiv](https://arxiv.org/abs/2109.14862)). The controller has two components: (1) an Angular Momentum Linear Inverted Pendulum (ALIP)-based Model Predictive Control (MPC) foot placement planner and (2) a gait controller which takes the foot placement solution as an input. This controller enables improved stability for walking on a variety of sloped and textured terrains. The controller is implemented on the Agility Robotics Cassie Robot.
+This repository provides an implementation of a bipedal locomotion controller, described in the paper **Terrain-Adaptive, ALIP-Based Bipedal Locomotion Controller via Model Predictive Control and Virtual Constraints**([pdf](https://github.com/grantgib/cassie_alip_mpc_controller/blob/main/media/Gibson_IROS2022_MPC_Cassie.pdf))([arXiv](https://arxiv.org/abs/2109.14862)). The controller has two components: (1) an Angular Momentum Linear Inverted Pendulum (ALIP)-based Model Predictive Control (MPC) foot placement planner and (2) a gait controller which takes the foot placement solution as an input. This controller enables improved stability for walking on a variety of sloped and textured terrains. The controller is implemented on the Agility Robotics Cassie Robot.
 
 * Authors: Grant Gibson, Oluwami Dosunmu-Ogunbi, Yukai Gong, and Jessy Grizzle
 * Maintainer: Grant Gibson (grantgib@umich.edu)
@@ -65,7 +65,7 @@ The code is organized as follows
 ## How the Controller Works
 A schematic is shown below that describes how the controller and cassie system are integrated. The controller is separated into two components due to computational limitations of the Cassie Simulink RealTime computer (fixed frequency of 2kHz). The foot placement planner portion is run on a secondary Linux computer. [CasADi](https://web.casadi.org/) was used to formulate and code generate an optimization problem described in the (paper)[]. The gait controller is run on the main computer and sends torques to the robot to execute. These commands are computed using the method of virtual constraints and inverse kinematics passivity-based control.
 <p align="center">
-<img src="https://github.com/grantgib/cassie_alip_mpc_iros_private/blob/main/media/block_diagram_schematic.PNG" alt="drawing" width="600"/>
+<img src="https://github.com/grantgib/cassie_alip_mpc_controller/blob/main/media/block_diagram_schematic.PNG" alt="drawing" width="600"/>
 </p>
 
 ## Simulation Tests
@@ -161,15 +161,15 @@ This section gives instructions for building and running the foot placement comp
 1. Open MATLAB 2017b with `matlab_alip_mpc` as the top directory. 
     - Run `start_up_sim.m`
         - Opens all files that may require additional edits (IP address changes, initial simulator configurations, reference commands, etc).
-    - In `CustomInitFcn_wth_standing.m` change the `udp_linux_ip_address` variable to match the ip address of the linux computer explained [here](https://github.com/grantgib/cassie_alip_mpc_iros_private#set-up-linux-ethernet-settings)
+    - In `CustomInitFcn_wth_standing.m` change the `udp_linux_ip_address` variable to match the ip address of the linux computer explained [here](#set-up-linux-ethernet-settings)
 
 ### Default Test
 The default test has cassie initially stand, walk-in-place, and then walk down a 5 degree lateral slope (shown below)
-![Alt Text](https://github.com/grantgib/cassie_alip_mpc_iros_private/blob/main/media/cassie_default_test_slow.gif)
+![Alt Text](https://github.com/grantgib/cassie_alip_mpc_controller/blob/main/media/cassie_default_test_slow.gif)
 
 To re-create follow these steps
 - On the **Linux Computer**
-    - Make sure the foot placement controller has been built by following the [steps above](https://github.com/grantgib/cassie_alip_mpc_iros_private#building-the-alip-mpc-foot-placement-executable-on-the-linux-computer). 
+    - Make sure the foot placement controller has been built by following the [steps above](#building-the-alip-mpc-foot-placement-executable-on-the-linux-computer). 
     - Open a terminal, navigate to the build directory (```cd cpp_alip_mpc/build/```)
     - Type ```./cassie_alip_mpc simulator``` but **wait to press enter** until the simulator is running.
 - On the **Windows Computer**
@@ -195,11 +195,11 @@ To re-create follow these steps
     - By default the 1 corresponds to a slope of 22 deg. 
     - To match the 5 degree lateral slope in the default example `RadioButton.LSA` is set equal to `5/22 = 0.2274`
 - You can alternatively choose incorrect slope estimates to see how the controller reacts.
-![image info](https://github.com/grantgib/cassie_alip_mpc_iros_private/blob/main/media/slope_change.png)
+![image info](https://github.com/grantgib/cassie_alip_mpc_controller/blob/main/media/slope_change.png)
 
 **Modifying Friction**
 - In `RemoteSpoofer_with_standing.m` change the `RadioButton.SCA` variable.
-![image info](https://github.com/grantgib/cassie_alip_mpc_iros_private/blob/main/media/friction_change.png)
+![image info](https://github.com/grantgib/cassie_alip_mpc_controller/blob/main/media/friction_change.png)
 
 ## Cassie Hardware Tests
 **Click images for videos of Experiments**
@@ -213,7 +213,7 @@ To re-create follow these steps
 ### Using the Controller
 - Plug the bootable USB with the controller into Cassie's computer
 - Connect Ethernet cables between the main Cassie computer and a secondary **Linux Computer**
-- For experimental tests, an ethernet connection between the onboard **Cassie Computer** and secondary **Linux Computer** is needed. After starting up Cassie and connecting the cables, follow the instructions for creating a new connection [detailed above](https://github.com/grantgib/cassie_alip_mpc_iros_private#set-up-linux-ethernet-settings)
+- For experimental tests, an ethernet connection between the onboard **Cassie Computer** and secondary **Linux Computer** is needed. After starting up Cassie and connecting the cables, follow the instructions for creating a new connection [detailed above](#set-up-linux-ethernet-settings)
     * The **Cassie Computer** IP Address is set to `10.10.10.3`.
     * Set the new **Linux Computer** IP Address to `10.10.10.150` and the netmask to `255.255.0.0`.
     * Check the connection once the robot is on and the radio transmitter has connected
@@ -226,7 +226,7 @@ To re-create follow these steps
 cd cpp_alip_mpc/build
 ./cassie_alip_mpc cassie
 ```
-- Set the radio transmitter buttons to the default values used in the Remote Spoofer [file](https://github.com/grantgib/cassie_alip_mpc_iros_private/blob/main/matlab_alip_mpc/Custom_Code/RemoteSpoofer_with_standing.m). Adjust the `LS` and `RS` buttons such that they are 0 to represent flat ground
+- Set the radio transmitter buttons to the default values used in the Remote Spoofer [file](https://github.com/grantgib/cassie_alip_mpc_controller/blob/main/matlab_alip_mpc/Custom_Code/RemoteSpoofer_with_standing.m). Adjust the `LS` and `RS` buttons such that they are 0 to represent flat ground
     - The manual can be found [here](https://www.frsky-rc.com/wp-content/uploads/Downloads/Manual/X9DP/X9D%20PLUS-manual.pdf)
 - Start the controller in standing mode by setting `SB` to 0 and enable the torques by setting `SA` to 1.
 - Switch controller modes to walking by setting `SB` to 1 and modify the other buttons accordingly.
