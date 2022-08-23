@@ -129,12 +129,12 @@ This section gives instructions for building and running the foot placement comp
    * If this is your first build on the Linux Computer you need to re-create shared object libraries for the code-generated casadi mpc solvers in `cpp_alip_mpc/src/solvers/mpc`. 
    ```
    cd src/solvers/mpc
-   ./../../../generate_mpc_solver_libs
+   ./../../../build/generate_mpc_solver_libs
    ```
    * If you have run `make clean` you can simply copy the libraries into the `build/` folder instead of generating them with
    ```
    cd src/solvers/mpc
-   ./../../../copy_mpc_solver_libs
+   ./../../../build/copy_mpc_solver_libs
    ```
 3. Check that the executable works
     * Navigate to the build directory and run the executable.
